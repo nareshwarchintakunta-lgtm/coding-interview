@@ -14,6 +14,10 @@ public static class Program
 
         // TODO: shuffle the deck
         Console.WriteLine("Shuffling...");
+        Console.WriteLine("Enter number of times to shuffle:");
+
+        int.TryParse(Console.ReadLine(), out int value);
+        deck.Shuffle(value);
 
         // Deal all the cards
         while (!deck.Empty)

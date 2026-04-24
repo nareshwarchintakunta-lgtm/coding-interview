@@ -6,6 +6,7 @@ namespace Blackbaud.Interview.Cards;
 public class Deck
 {
     private readonly Stack<Card> _stackOfCards;
+    private static readonly Random _runningNum = new Random();
 
     /// <summary>
     /// Private constructor for a new deck of <paramref name="cards"/>.
@@ -58,4 +59,32 @@ public class Deck
         }
     }
 
+    /// <summary>
+    /// Shuffle Deck of Cards
+    /// </summary>
+    /// <param name="shuffleTimes"></param>
+    /// <exception cref="Exception"></exception>
+    public void Shuffle(int shuffleTimes)
+    {
+        if (shuffleTimes <= 0)
+            throw new Exception("Shuffle times must be greater than 0");
+
+        var listOfCards = _stackOfCards.ToList();
+
+        for (int t = 0; t < shuffleTimes; t++)
+        {
+            for (int i = listOfCards.Count - 1; i > 0; i--)
+            {
+                int j = _runningNum.Next(i + 1);
+                (listOfCards[i], listOfCards[j]) = (listOfCards[j], listOfCards[i]);
+            }
+        }
+
+        _stackOfCards.Clear();
+
+        for (int i = listOfCards.Count - 1; i >= 0; i--)
+        {
+            _stackOfCards.Push(listOfCards[i]);
+        }
+    }
 }
